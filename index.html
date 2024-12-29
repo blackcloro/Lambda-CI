@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda CI - A CI/CD System That Respects Your Intelligence</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-mono/1.0.0/JetBrainsMono-Regular.woff2" rel="stylesheet">
+    
+    <style>
+        /* Base styles and CSS reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Core design system variables */
+        :root {
+            --color-bg: #111827;
+            --color-text: #f3f4f6;
+            --color-text-secondary: #9ca3af;
+            --color-primary: #059669;
+            --color-primary-hover: #065f46;
+            --color-border: #1f2937;
+            --color-code-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        /* Layout containers */
+        .container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Typography */
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            max-width: 42rem;
+        }
+
+        /* Header section */
+        .hero {
+            padding: 4rem 0;
+        }
+
+        .terminal-text {
+            font-family: 'JetBrains Mono', monospace;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Code display */
+        .code-block {
+            background: var(--color-code-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            color: #10b981;
+            margin: 1rem 0;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .button-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .button-secondary {
+            border: 1px solid var(--color-primary);
+            color: #10b981;
+        }
+
+        .button-secondary:hover {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Features section */
+        .features {
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 4rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .feature {
+            margin-bottom: 2rem;
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .feature-description {
+            color: var(--color-text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Early access section */
+        .early-access {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .early-access-content {
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        .input-email {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--color-border);
+            color: white;
+            margin: 1rem 0;
+        }
+
+        .input-email:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--color-border);
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: #10b981;
+        }
+
+        /* Animation for cursor */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.5rem;
+            height: 1.2rem;
+            background-color: #10b981;
+            margin-left: 0.2rem;
+            animation: blink 1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="terminal-text">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                </svg>
+                <span id="typewriter">Building a CI system that doesn't make me want to quit programming</span>
+                <span class="cursor"></span>
+            </div>
+
+            <h1 class="hero-title">Lambda CI: A CI/CD System That Respects Your Intelligence</h1>
+            <p class="hero-subtitle">
+                Replace YAML hell with a proper programming language. Write build configurations 
+                in a LISP-inspired DSL that's both powerful and predictable.
+            </p>
+
+            <div class="button-group">
+                <a href="#early-access" class="button button-primary">Join Early Access</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1"></path>
+                            <path d="M16 3h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1"></path>
+                        </svg>
+                        <h3 class="feature-title">LISP-inspired Configuration</h3>
+                    </div>
+                    <p class="feature-description">
+                        Stop fighting with YAML. Write build configurations in a proper programming 
+                        language with composable functions, proper error handling, and predictable behavior.
+                    </p>
+                    <pre class="code-block">(defworkflow deploy
+  (-> (git/checkout)
+      ;; Automatic dependency analysis and caching
+      (with-smart-cache
+        (parallel
+          (test/unit)
+          (test/integration)))
+      
+      ;; Intelligent canary deployment
+      (when (all-passed?)
+        (deploy/canary
+          {:success-criteria
+            (-> (metrics/error-rate)
+                (< 0.1)
+                (and (metrics/latency-p95)
+                     (< 200)))}))))</pre>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                            <line x1="9" y1="1" x2="9" y2="4"></line>
+                            <line x1="15" y1="1" x2="15" y2="4"></line>
+                            <line x1="9" y1="20" x2="9" y2="23"></line>
+                            <line x1="15" y1="20" x2="15" y2="23"></line>
+                            <line x1="20" y1="9" x2="23" y2="9"></line>
+                            <line x1="20" y1="14" x2="23" y2="14"></line>
+                            <line x1="1" y1="9" x2="4" y2="9"></line>
+                            <line x1="1" y1="14" x2="4" y2="14"></line>
+                        </svg>
+                        <h3 class="feature-title">Intelligent Build Optimization</h3>
+                    </div>
+                    <p class="feature-description">
+                        Automatic dependency analysis and smart caching. The system understands your 
+                        project structure and optimizes builds automatically. No more manual cache configuration.
+                    </p>
+
+                    <div class="feature-header" style="margin-top: 2rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="6" y1="3" x2="6" y2="15"></line>
+                            <circle cx="18" cy="6" r="3"></circle>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <path d="M18 9a9 9 0 0 1-9 9"></path>
+                        </svg>
+                        <h3 class="feature-title">Progressive Complexity</h3>
+                    </div>
+                    <p class="feature-description">
+                        Start simple and grow into power features. The system adapts to your needs, 
+                        from basic builds to complex deployment pipelines with canary testing and 
+                        automatic rollbacks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Early Access Section -->
+    <section id="early-access" class="early-access">
+        <div class="container">
+            <div class="early-access-content">
+                <h2 class="hero-title">Early Access Program</h2>
+                <p class="feature-description">
+                    Lambda CI is currently in development. Join the early access program to help 
+                    shape the future of CI/CD and get lifetime discount pricing.
+                </p>
+
+                <form id="early-access-form">
+                    <input type="email" 
+                           class="input-email" 
+                           placeholder="your@email.com" 
+                           required>
+                    <div style="margin: 1rem 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#eab308" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span style="color: var(--color-text-secondary); font-size: 0.875rem;">
+                            Early access will be limited to ensure quality support
+                        </span>
+                    </div>
+                    <button type="submit" class="button button-primary">Request Early Access</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div style="color: var(--color-text-secondary);">
+                    Building something better than YAML
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+          element.textContent = ""
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typewriter effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const typewriterElement = document.getElementById('typewriter');
+            const text = "Building a CI system that doesn't make me want to quit programming";
+            typeWriter(typewriterElement, text);
+
+            // Handle form submission
+            const form = document.getElementById('early-access-form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = e.target.querySelector('input[type="email"]').value;
+                
+                // TODO
+                const button = e.target.querySelector('button');
+                const originalText = button.textContent;
+                button.textContent = 'Thanks! We\'ll be in touch.';
+                button.disabled = true;
+                button.style.backgroundColor = '#065f46';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.disabled = false;
+                    button.style.backgroundColor = '';
+                }, 3000);
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.code-block').forEach(block => {
+                block.innerHTML = block.innerHTML
+                    .replace(/;.*$/gm, match => `<span style="color: #6b7280">${match}</span>`)
+                    .replace(/\b(defworkflow|when|parallel|let|do)\b/g, match => 
+                        `<span style="color: #93c5fd">${match}</span>`)
+                    .replace(/\b(metrics|test|deploy|git|cache)\b/g, match => 
+                        `<span style="color: #fbbf24">${match}</span>`);
+            });
+        });
+    </script>
+</body>
+</html>
